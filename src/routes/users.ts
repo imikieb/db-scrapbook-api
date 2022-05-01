@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { notesValidation } from '../middlewares/notes';
 import UsersController from '../controllers/users';
 
 export default class UsersRoutes {
