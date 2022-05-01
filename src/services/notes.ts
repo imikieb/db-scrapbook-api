@@ -11,16 +11,22 @@ export class NotesService {
 
     async create(NotesDTO: NotesDTO) {
         const repository = new NotesRepository();
-        const notes = await repository.create(NotesDTO);
 
-        return notes;
+        if(NotesDTO.note) {
+            const notes = await repository.create(NotesDTO);
+    
+            return notes;
+        }
     }
 
     async update(NotesDTO: NotesDTO) {
         const repository = new NotesRepository();
-        const notes = await repository.update(NotesDTO);
 
-        return notes;
+        if(NotesDTO.note) {
+            const notes = await repository.update(NotesDTO);
+    
+            return notes;
+        }
     }
 
     async delete(noteID: number) {

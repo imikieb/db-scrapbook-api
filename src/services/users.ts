@@ -11,8 +11,11 @@ export class UsersService {
 
     async create(UsersDTO: UsersDTO) {
         const repository = new UsersRepository();
-        const users = await repository.create(UsersDTO);
+        
+        if(UsersDTO.name.length > 3 && UsersDTO.name.length > 7) {
+            const users = await repository.create(UsersDTO);
 
-        return users;
+            return users;
+        }
     }
 }
