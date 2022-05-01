@@ -13,7 +13,9 @@ export const registerValidation = async (request: Request, response: Response, n
     const nameAuth = users?.find(user => user.name === name);
 
     if(!name || !password) {
-        return response.status(httpBadRequestCode).json(fillFields);
+        return response.status(httpBadRequestCode).json({
+            message: fillFields
+        });
     }
 
     if(name.length < 4 || name.length > 30) {
