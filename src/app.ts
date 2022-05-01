@@ -6,7 +6,7 @@ import UsersRoutes from './routes/users';
 import UsersRegisterRoutes from './routes/register';
 import UsersLoginRoutes from './routes/login';
 import NotesRoutes from './routes/notes';
-import { globalMiddleware } from './middlewares';
+import { globalMiddleware } from './middlewares/global';
 import { HttpError } from './errors/httpError';
 
 export default class Application {
