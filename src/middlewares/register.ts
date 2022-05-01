@@ -13,13 +13,13 @@ export const registerValidation = async (request: Request, response: Response, n
         });
     }
 
-    if(name.length < 4 || name.length > 20) {
+    if(name.length < 4 || name.length > 30) {
         return response.status(400).json({
             message: 'O nome deve conter no mínimo 4 caracteres.'
         });
     }
 
-    if(password.length < 8 || password.length > 20) {
+    if(password.length < 8 || password.length > 30) {
         return response.status(400).json({
             message: 'A senha deve conter no mínimo 8 caracteres.'
         });
