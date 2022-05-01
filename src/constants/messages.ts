@@ -5,6 +5,8 @@ export const actionMessage = (field: string) => {
     
     return message;
 }
-export const fieldsLength = (field: string, amount: string, length: string) => {
-     `${field} deve conter no ${amount} ${length} caracteres.`
+export const fieldsLength = (field: string, amount: string, length: number) => {
+    const message = { message: `${field} deve conter no ${amount} ${length} caracteres.` }
+
+    return message
 }

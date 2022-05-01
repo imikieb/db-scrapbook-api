@@ -18,16 +18,12 @@ export const registerValidation = async (request: Request, response: Response, n
         });
     }
 
-    if(name.length < 4 || name.length > 30) {
-        return response.status(httpBadRequestCode).json({
-            message: fieldsLength('O nome', 'mínimo', '4')
-        });
+    if(name.length < 4) {
+        return response.status(httpBadRequestCode).json(fieldsLength('O nome', 'mínimo', 4));
     }
 
-    if(password.length < 8 || password.length > 30) {
-        return response.status(httpBadRequestCode).json({
-            message: fieldsLength('A senha', 'mínimo', '8')
-        });
+    if(password.length < 8) {
+        return response.status(httpBadRequestCode).json(fieldsLength('A senha', 'mínimo', 8));
     }
 
     if(!/^[a-zA-Z]/.test(name)) {
