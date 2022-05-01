@@ -49,7 +49,7 @@ export const registerValidation = async (request: Request, response: Response, n
         });
     }
 
-    if(password.search(/^(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]).*$/) <0) {
+    if(password.search(/^(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]).*$/) < 0) {
         return response.status(400).json({
             message: 'A senha deve conter um caracter especial.'
         });
