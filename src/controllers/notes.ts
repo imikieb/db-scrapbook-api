@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import { NotesService, UsersService } from '../services';
+import { HttpError } from '../errors/httpError';
+import { httpInternalErrorCode, defaultErrorMessage } from '../constants';
 
 export default class NotesController {
     async index(request: Request, response: Response) {
@@ -17,7 +19,7 @@ export default class NotesController {
     
             return response.json(showNotes);
         } catch(error) {
-            throw new Error('Erro no servidor.');
+            throw new HttpError(defaultErrorMessage, httpInternalErrorCode);
         }
     }
 
@@ -35,7 +37,7 @@ export default class NotesController {
                 message: 'Nota criada com sucesso.'
             }), users;
         } catch(error) {
-            throw new Error('Erro no servidor.');
+            throw new HttpError(defaultErrorMessage, httpInternalErrorCode);
         }
     }
 
@@ -55,7 +57,7 @@ export default class NotesController {
                 message: 'Nota editada com sucesso.'
             }), users;
         } catch(error) {
-            throw new Error('Erro no servidor.');
+            throw new HttpError(defaultErrorMessage, httpInternalErrorCode);
         }
     }
 
@@ -68,7 +70,7 @@ export default class NotesController {
 
             return response.sendStatus(204);
         } catch(error) {
-            throw new Error('Erro no servidor.');
+            throw new HttpError(defaultErrorMessage, httpInternalErrorCode);
         }
     }
 }

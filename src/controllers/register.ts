@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import { UsersService } from '../services';
+import { HttpError } from '../errors/httpError';
+import { httpInternalErrorCode, defaultErrorMessage } from '../constants';
 
 export default class UsersRegisterController {
     async store(request: Request, response: Response) {
@@ -16,7 +18,7 @@ export default class UsersRegisterController {
                 message: 'Usuário cadastrado com sucesso.'
             }), users;
         } catch(error) {
-            throw new Error('Erro no servidor.');
+            throw new HttpError(defaultErrorMessage, httpInternalErrorCode);
         }
     }
 }

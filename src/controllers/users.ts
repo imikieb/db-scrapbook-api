@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import { UsersService } from '../services';
+import { HttpError } from '../errors/httpError';
+import { httpInternalErrorCode, defaultErrorMessage } from '../constants';
 
 export default class UsersController {
     async index(request: Request, response: Response) {
@@ -12,7 +14,7 @@ export default class UsersController {
     
             return response.json(nameAuth);
         } catch(error) {
-            throw new Error('Erro no servidor.');
+            throw new HttpError(defaultErrorMessage, httpInternalErrorCode);
         }
     }
 }
