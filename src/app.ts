@@ -1,6 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
-
 import Database from './database/connections/Database';
 import UsersRoutes from './routes/users';
 import UsersRegisterRoutes from './routes/register';
