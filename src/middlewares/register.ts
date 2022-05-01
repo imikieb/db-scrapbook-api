@@ -1,5 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import { UsersService } from '../services';
+import {
+    httpBadRequestCode,
+    fillFields,
+    fieldsLength
+} from '../constants';
 
 export const registerValidation = async (request: Request, response: Response, next: NextFunction) => {
     const { name, password } = request.body;
@@ -8,55 +13,53 @@ export const registerValidation = async (request: Request, response: Response, n
     const nameAuth = users?.find(user => user.name === name);
 
     if(!name || !password) {
-        return response.status(400).json({
-            message: 'Preencha todos os campos.'
-        });
+        return response.status(httpBadRequestCode).json(fillFields);
     }
 
     if(name.length < 4 || name.length > 30) {
-        return response.status(400).json({
-            message: 'O nome deve conter no mínimo 4 caracteres.'
+        return response.status(httpBadRequestCode).json({
+            message: fieldsLength('O nome', 'mínimo', '4')
         });
     }
 
     if(password.length < 8 || password.length > 30) {
-        return response.status(400).json({
-            message: 'A senha deve conter no mínimo 8 caracteres.'
+        return response.status(httpBadRequestCode).json({
+            message: fieldsLength('A senha', 'mínimo', '8')
         });
     }
 
     if(!/^[a-zA-Z]/.test(name)) {
-        return response.status(400).json({
+        return response.status(httpBadRequestCode).json({
             message: 'O nome deverá começar com uma letra.'
         });
     }
 
     if(password.search(/^(?=.*[a-z]).*$/) < 0) {
-        return response.status(400).json({
+        return response.status(httpBadRequestCode).json({
             message: 'A senha deve conter uma letra minúscula.'
         });
     }
 
     if(password.search(/^(?=.*[A-Z]).*$/) < 0) {
-        return response.status(400).json({
+        return response.status(httpBadRequestCode).json({
             message: 'A senha deve conter uma letra maiúscula.'
         });
     }
 
     if(password.search(/[0-9]/) < 0) {
-        return response.status(400).json({
+        return response.status(httpBadRequestCode).json({
             message: 'A senha deve conter um número.'
         });
     }
 
     if(password.search(/^(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]).*$/) < 0) {
-        return response.status(400).json({
+        return response.status(httpBadRequestCode).json({
             message: 'A senha deve conter um caracter especial.'
         });
     }
 
     if(nameAuth) {
-        return response.status(400).json({
+        return response.status(httpBadRequestCode).json({
             message: 'Usuário já cadastrado.'
         });
     }

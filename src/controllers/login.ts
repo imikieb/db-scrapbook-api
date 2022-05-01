@@ -1,13 +1,16 @@
 import { Request, Response } from 'express';
 import { HttpError } from '../errors/httpError';
-import { httpInternalErrorCode, defaultErrorMessage } from '../constants';
+import {
+    httpInternalErrorCode,
+    httpSuccessCode,
+    defaultErrorMessage,
+    actionMessage
+} from '../constants';
 
 export default class UsersLoginController {
     async loginStore(request: Request, response: Response) {
         try {
-            return response.json({
-                message: 'Usuário logado com sucesso.'
-            });
+            return response.status(httpSuccessCode).json(actionMessage('Usuário logado'));
         } catch(error) {
             throw new HttpError(defaultErrorMessage, httpInternalErrorCode);
         }
@@ -15,9 +18,7 @@ export default class UsersLoginController {
 
     async userStore(request: Request, response: Response) {
         try {
-            return response.json({
-                message: 'Usuário validado com sucesso.'
-            });
+            return response.status(httpSuccessCode).json(actionMessage('Usuário validado'));
         } catch(error) {
             throw new HttpError(defaultErrorMessage, httpInternalErrorCode); 
         }

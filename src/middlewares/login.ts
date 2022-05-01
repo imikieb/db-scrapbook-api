@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { UsersService } from '../services';
+import { httpBadRequestCode, fillFields } from '../constants';
 
 export const loginValidation = async (request: Request, response: Response, next: NextFunction) => {
     const { name, password } = request.body;
@@ -9,13 +10,13 @@ export const loginValidation = async (request: Request, response: Response, next
     const passwordAuth = nameAuth?.password;
 
     if(!name || !password) {
-        return response.status(400).json({
-            message: 'Preencha todos os campos.'
+        return response.status(httpBadRequestCode).json({
+            message: fillFields
         });
     }
 
     if(!nameAuth || passwordAuth !== password) {
-        return response.status(400).json({
+        return response.status(httpBadRequestCode).json({
             message: 'Nome ou senha incorretos.'
         });
     }
@@ -30,8 +31,8 @@ export const userValidation = async (request: Request, response: Response, next:
     const nameAuth = users?.find(user => user.name === name);
 
     if(!nameAuth) {
-        return response.status(400).json({
-            message: 'Usuário não está logado.'
+        return response.status(httpBadRequestCode).json({
+            message: 'Usuário não logou.'
         });
     }
 

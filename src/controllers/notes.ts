@@ -1,7 +1,14 @@
 import { Request, Response } from 'express';
 import { NotesService, UsersService } from '../services';
 import { HttpError } from '../errors/httpError';
-import { httpInternalErrorCode, defaultErrorMessage } from '../constants';
+import { 
+    httpInternalErrorCode, 
+    httpCreatedCode, 
+    httpNoContentCode, 
+    httpSuccessCode, 
+    defaultErrorMessage, 
+    actionMessage
+} from '../constants';
 
 export default class NotesController {
     async index(request: Request, response: Response) {
@@ -33,9 +40,7 @@ export default class NotesController {
                 user_id
             });
 
-            return response.status(201).json({
-                message: 'Nota criada com sucesso.'
-            }), users;
+            return response.status(httpCreatedCode).json(actionMessage('Nota criada')), users;
         } catch(error) {
             throw new HttpError(defaultErrorMessage, httpInternalErrorCode);
         }
@@ -53,9 +58,7 @@ export default class NotesController {
                 user_id
             });
 
-            return response.status(201).json({
-                message: 'Nota editada com sucesso.'
-            }), users;
+            return response.status(httpSuccessCode).json(actionMessage('Nota editada')), users;
         } catch(error) {
             throw new HttpError(defaultErrorMessage, httpInternalErrorCode);
         }
@@ -68,7 +71,7 @@ export default class NotesController {
         try {
             await service.delete(parseInt(id));
 
-            return response.sendStatus(204);
+            return response.status(httpNoContentCode).json(actionMessage('Nota deletada'));
         } catch(error) {
             throw new HttpError(defaultErrorMessage, httpInternalErrorCode);
         }

@@ -1,4 +1,10 @@
 export const defaultErrorMessage = 'Ocorreu um erro, tente novamente mais tarde.';
-export const createdMessage = (field: string) => `${field} criado(a) com sucesso.`;
-export const editedMessage = (field: string) => `${field} editado(a) com sucesso.`;
-export const deletedMessage = (field: string) => `${field} deletado(a) com sucesso.`;
+export const fillFields = 'Preencha todos os campos.';
+export const actionMessage = (field: string) => {
+    const message = { message: `${field} com sucesso.` }
+    
+    return message;
+}
+export const fieldsLength = (field: string, amount: string, length: string) => {
+     `${field} deve conter no ${amount} ${length} caracteres.`
+}

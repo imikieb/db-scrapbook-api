@@ -1,7 +1,12 @@
 import { Request, Response } from 'express';
 import { UsersService } from '../services';
 import { HttpError } from '../errors/httpError';
-import { httpInternalErrorCode, defaultErrorMessage } from '../constants';
+import {
+    httpInternalErrorCode,
+    httpCreatedCode,
+    defaultErrorMessage,
+    actionMessage
+} from '../constants';
 
 export default class UsersRegisterController {
     async store(request: Request, response: Response) {
@@ -14,9 +19,7 @@ export default class UsersRegisterController {
                 password
             });
 
-            return response.status(201).json({
-                message: 'Usuário cadastrado com sucesso.'
-            }), users;
+            return response.status(httpCreatedCode).json(actionMessage('Usuário criado')), users;
         } catch(error) {
             throw new HttpError(defaultErrorMessage, httpInternalErrorCode);
         }
