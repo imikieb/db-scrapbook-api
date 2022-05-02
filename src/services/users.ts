@@ -12,7 +12,7 @@ export class UsersService {
     async create(UsersDTO: UsersDTO) {
         const repository = new UsersRepository();
         
-        if(UsersDTO.name.length > 3 && UsersDTO.name.length > 7) {
+        if(UsersDTO.name.length > 3 && UsersDTO.password.length > 7) {
             const users = await repository.create(UsersDTO);
 
             return users;

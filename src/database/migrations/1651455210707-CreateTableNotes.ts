@@ -1,10 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateTableNotes1651109352169 = void 0;
-const typeorm_1 = require("typeorm");
-class CreateTableNotes1651109352169 {
-    async up(queryRunner) {
-        await queryRunner.createTable(new typeorm_1.Table({
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm';
+
+export class CreateTableNotes1651455210707 implements MigrationInterface {
+    public async up(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.createTable(new Table({
             name: 'notes',
             columns: [
                 {
@@ -24,9 +22,9 @@ class CreateTableNotes1651109352169 {
                     type: 'int',
                     isNullable: false
                 }
-            ],
+            ], 
             foreignKeys: [
-                new typeorm_1.TableForeignKey({
+                new TableForeignKey({
                     columnNames: ['user_id'],
                     referencedColumnNames: ['id'],
                     referencedTableName: 'users'
@@ -34,8 +32,8 @@ class CreateTableNotes1651109352169 {
             ]
         }));
     }
-    async down(queryRunner) {
+
+    public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.dropTable('notes', true, true, true);
     }
 }
-exports.CreateTableNotes1651109352169 = CreateTableNotes1651109352169;

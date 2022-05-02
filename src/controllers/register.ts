@@ -14,12 +14,12 @@ export default class UsersRegisterController {
         const service = new UsersService();
 
         try {
-            const users = await service.create({
-                name,
-                password
+            await service.create({
+                name: name,
+                password: password
             });
 
-            return response.status(httpCreatedCode).json(actionMessage('Usuário criado')), users;
+            return response.status(httpCreatedCode).json(actionMessage('Usuário criado'));
         } catch(error) {
             throw new HttpError(defaultErrorMessage, httpInternalErrorCode);
         }

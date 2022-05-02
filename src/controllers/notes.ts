@@ -35,12 +35,12 @@ export default class NotesController {
         const service = new NotesService();
 
         try {
-            const users = await service.create({
-                note,
-                user_id
+            await service.create({
+                note: note,
+                user_id: user_id
             });
 
-            return response.status(httpCreatedCode).json(actionMessage('Nota criada')), users;
+            return response.status(httpCreatedCode).json(actionMessage('Nota criada'));
         } catch(error) {
             throw new HttpError(defaultErrorMessage, httpInternalErrorCode);
         }

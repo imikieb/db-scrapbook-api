@@ -1,10 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateTableUsers1651082788395 = void 0;
-const typeorm_1 = require("typeorm");
-class CreateTableUsers1651082788395 {
-    async up(queryRunner) {
-        await queryRunner.createTable(new typeorm_1.Table({
+import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+
+export class CreateTableUsers1651454967355 implements MigrationInterface {
+    public async up(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.createTable(new Table({
             name: 'users',
             columns: [
                 {
@@ -29,8 +27,9 @@ class CreateTableUsers1651082788395 {
             ]
         }));
     }
-    async down(queryRunner) {
+
+    public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.dropTable('users', true, true, true);
     }
 }
-exports.CreateTableUsers1651082788395 = CreateTableUsers1651082788395;
+
