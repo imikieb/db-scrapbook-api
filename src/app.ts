@@ -2,10 +2,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import Database from './database/connections/Database';
 import UsersRoutes from './routes/users';
-import UsersRegisterRoutes from './routes/register';
-import UsersLoginRoutes from './routes/login';
 import NotesRoutes from './routes/notes';
-import { globalMiddleware } from './middlewares/global';
 import { HttpError } from './errors/httpError';
 
 export default class Application {
@@ -17,7 +14,6 @@ export default class Application {
 
     async init() {
         this.config();
-        this.middlewares();
         this.errors();
         this.routes();
         await this.database();
@@ -35,10 +31,6 @@ export default class Application {
         this.#express.use(cors());
     }
 
-    private middlewares () {
-        this.#express.use(globalMiddleware);
-    }
-
     private errors() {
         this.#express.use((error: HttpError, request: Request, response: Response, next: NextFunction) => {
             return response.json({
@@ -49,13 +41,9 @@ export default class Application {
 
     private routes() {
         const usersRouter = new UsersRoutes().init();
-        const usersRegisterRouter = new UsersRegisterRoutes().init();
-        const usersLoginRouter = new UsersLoginRoutes().init();
         const notesRouter = new NotesRoutes().init();
 
         this.#express.use(usersRouter);
-        this.#express.use(usersRegisterRouter);
-        this.#express.use(usersLoginRouter);
         this.#express.use(notesRouter);
     }
 

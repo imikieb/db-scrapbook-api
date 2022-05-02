@@ -7,10 +7,10 @@ export default class NotesRoutes {
         const router = Router();
         const controller = new NotesController();
 
-        router.get('/:name/notes', controller.index);
-        router.post('/:name/notes', [notesValidation], controller.store);
-        router.put('/:name/notes/:id', [notesValidation], controller.update);
-        router.delete('/:name/notes/:id', controller.delete);
+        router.get('/notes/:userId', controller.index);
+        router.post('/notes/:userId', [notesValidation], controller.store);
+        router.put('/notes/:userId/:id', [notesValidation], controller.update);
+        router.delete('/notes/:userId/:id', controller.delete);
 
         return router;
     }

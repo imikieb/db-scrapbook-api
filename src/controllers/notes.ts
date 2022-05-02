@@ -1,30 +1,25 @@
 import { Request, Response } from 'express';
-import { NotesService, UsersService } from '../services';
+import { NotesService } from '../services';
 import { HttpError } from '../errors/httpError';
 import { 
-    httpInternalErrorCode, 
-    httpCreatedCode, 
-    httpNoContentCode, 
-    httpSuccessCode, 
+    httpInternalErrorCode,
+    httpCreatedCode,
+    httpNoContentCode,
+    httpSuccessCode,
     defaultErrorMessage, 
     actionMessage
 } from '../constants';
 
 export default class NotesController {
     async index(request: Request, response: Response) {
-        const { name } = request.params;
-        const usersService = new UsersService();
+        const { userId } = request.params;
         const notesService = new NotesService();
 
         try {
-            const users = await usersService.find();
             const notes = await notesService.find();
-            const nameAuth = users?.find(user => user.name === name);
-            const userId = nameAuth?.id;
-            const noteAuth = notes?.filter(note => note.user_id === userId);
-            const showNotes = noteAuth.map(note => note);
+            const noteAuth = notes?.filter(note => note.user_id === parseInt(userId));
     
-            return response.json(showNotes);
+            return response.json(noteAuth);
         } catch(error) {
             throw new HttpError(defaultErrorMessage, httpInternalErrorCode);
         }

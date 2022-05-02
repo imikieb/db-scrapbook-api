@@ -1,4 +1,2 @@
-export * from './global';
-export * from './login';
-export * from './notes'
-export * from './register';
+export * from './users';
+export * from './notes';
